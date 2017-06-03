@@ -81,6 +81,7 @@ int check_matrix(double** matrix1, double** matrix2){
 }
 
 
+
 /*******************************************************************************
  * name   : check_matrix_dot
  * arg    : double**    matrix1
@@ -124,6 +125,90 @@ int check_matrix_dot(double** matrix1, double** matrix2){
 }
 
 
+
+/*******************************************************************************
+ * name   : get_matrix_row
+  * arg    : double**    matrix
+                          ...任意の"double**".
+ * return : 行要素数
+ * note   : この関数は与えられた行列の行の要素数を求める.
+ * cation :
+******************************************************************************/
+int get_matrix_row(double** matrix){
+  int row;
+  for(row = 0; matrix[0][row] != END_ARY; row++);
+  return row;
+}
+
+
+
+/*******************************************************************************
+ * name   : get_matrix_col
+  * arg    : double**    matrix
+                          ...任意の"double**".
+ * return : 列要素数
+ * note   : この関数は与えられた行列の列の要素数を求める.
+ * cation :
+******************************************************************************/
+int get_matrix_col(double** matrix){
+  int col;
+  for(col = 0; matrix[col][0] != END_ARY; col++);
+  return col;
+}
+
+
+
+/*******************************************************************************
+ * name   : add_matrix
+  * arg    : double**    matrix1
+                          ...任意の加算したい"double**".
+            double**    matrix2
+                          ...任意の加算したい"double**".
+ * return : true or false
+ * note   : この関数は与えられた二つの行列を加算しそのポインタを返す.
+ * cation :
+******************************************************************************/
+/*double** add_matrix(double** matrix1, double** matrix2){
+
+  double** added_matrix = NULL;
+
+  for(int i = 0; matrix1[i][0] != END_ARY; i++){
+    for(int j = 0; matrix1[i][j] != END_ARY; j++){
+      added_matrix[i][j] = matrix1[i][j] + matrix2[i][j];
+    }
+  }
+  return added_matrix;
+}*/
+
+
+
+/*******************************************************************************
+ * name   : sub_matrix
+  * arg    : double**    matrix1
+                          ...任意の減算したい"double**".
+            double**    matrix2
+                          ...任意の減算したい"double**".
+ * return : true or false
+ * note   : この関数は与えられた二つの行列を減算しそのポインタを返す.
+ * cation :
+******************************************************************************/
+/*double** sub_matrix(double** matrix1, double** matrix2){
+
+  double** subed_matrix = NULL;
+
+  for(int i = 0; matrix1[i][0] != END_ARY; i++){
+    for(int j = 0; matrix1[i][j] != END_ARY; j++){
+      subed_matrix[i][j] = matrix1[i][j] + matrix2[i][j];
+    }
+  }
+  return subed_matrix;
+}*/
+
+
+
+
+
+
 /*************************************
  ******      テスト用メイン     ******
 *************************************/
@@ -131,13 +216,13 @@ int main(){
 
   double** a = NULL;
   double** e = NULL;
+  double** add = NULL;
 
   int c=3,b =2;
 
-  a = Init_new_matrix(c, b);
+  a = Init_new_matrix(b, c);
   e = Init_new_matrix(b, c);
-
-  printf("bool:%d\n",check_matrix_dot(a,e));
+  add = Init_new_matrix(b,c);
 
   getchar();
 }
