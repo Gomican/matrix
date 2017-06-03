@@ -166,19 +166,28 @@ int get_matrix_col(double** matrix){
                           ...任意の加算したい"double**".
  * return : true or false
  * note   : この関数は与えられた二つの行列を加算しそのポインタを返す.
- * cation :
+ * cation : 引数に不備があった場合適当なポインタを返す.
+            ここら辺の処理は後々ちゃんと実装していく予定.
 ******************************************************************************/
-/*double** add_matrix(double** matrix1, double** matrix2){
+double** add_matrix(double** matrix1, double** matrix2){
 
   double** added_matrix = NULL;
+  added_matrix = Init_new_matrix(get_matrix_col(matrix1), get_matrix_row(matrix1));
 
-  for(int i = 0; matrix1[i][0] != END_ARY; i++){
-    for(int j = 0; matrix1[i][j] != END_ARY; j++){
-      added_matrix[i][j] = matrix1[i][j] + matrix2[i][j];
+  /*** 行列のチェック ***/
+  if      (get_matrix_col(matrix1) != get_matrix_col(matrix1)) return added_matrix;
+  else if (get_matrix_row(matrix1) != get_matrix_row(matrix1)) return added_matrix;
+
+  /*計算部分*/
+  else{
+    for(int i = 0; matrix1[i][0] != END_ARY; i++){
+      for(int j = 0; matrix1[i][j] != END_ARY; j++){
+        added_matrix[i][j] = matrix1[i][j] + matrix2[i][j];
+      }
     }
   }
   return added_matrix;
-}*/
+}
 
 
 
@@ -192,17 +201,25 @@ int get_matrix_col(double** matrix){
  * note   : この関数は与えられた二つの行列を減算しそのポインタを返す.
  * cation :
 ******************************************************************************/
-/*double** sub_matrix(double** matrix1, double** matrix2){
+double** sub_matrix(double** matrix1, double** matrix2){
 
   double** subed_matrix = NULL;
+  subed_matrix = Init_new_matrix(get_matrix_col(matrix1), get_matrix_row(matrix1));
 
-  for(int i = 0; matrix1[i][0] != END_ARY; i++){
-    for(int j = 0; matrix1[i][j] != END_ARY; j++){
-      subed_matrix[i][j] = matrix1[i][j] + matrix2[i][j];
+  /*** 行列のチェック ***/
+  if      (get_matrix_col(matrix1) != get_matrix_col(matrix1)) return subed_matrix;
+  else if (get_matrix_row(matrix1) != get_matrix_row(matrix1)) return subed_matrix;
+
+  /*計算部分*/
+  else{
+    for(int i = 0; matrix1[i][0] != END_ARY; i++){
+      for(int j = 0; matrix1[i][j] != END_ARY; j++){
+        subed_matrix[i][j] = matrix1[i][j] - matrix2[i][j];
+      }
     }
   }
   return subed_matrix;
-}*/
+}
 
 
 
@@ -222,7 +239,13 @@ int main(){
 
   a = Init_new_matrix(b, c);
   e = Init_new_matrix(b, c);
-  add = Init_new_matrix(b,c);
+
+  a[0][0] = 2.0;
+  e[0][0] = 3.0;
+
+  add = sub_matrix(a,e);
+
+  printf("add:%lf",add[0][0]);
 
   getchar();
 }
