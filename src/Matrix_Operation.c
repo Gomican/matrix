@@ -58,16 +58,11 @@ int check_matrix(double** matrix1, double** matrix2){
     for(i = 0; matrix1[i][0] != END_ARY; i++) element_count1[0] = i;
     for(j = 0; matrix2[j][0] != END_ARY; j++) element_count2[0] = j;
 
-    printf("i:%d\n",element_count1[0]);
-    printf("j:%d\n\n\n",element_count2[0]);
 
     /***** 列要素の要素数 *****/
     for(i = 0; matrix1[0][i] != END_ARY; i++) element_count1[1] = i;
     for(j = 0; matrix2[0][j] != END_ARY; j++) element_count2[1] = j;
 
-
-    printf("i:%d\n",element_count1[1]);
-    printf("j:%d\n\n\n",element_count2[1]);
 
     /***** 各要素数同士のチェック *****/
 
@@ -90,7 +85,7 @@ int check_matrix(double** matrix1, double** matrix2){
                           ...任意の"double**".
  * return : true or false
  * note   : この関数は与えられた二つの二次元配列の要素数が内積の定義を満たすか
-            を確認する関数..
+            を確認する関数.
  * cation :
  ******************************************************************************/
 int check_matrix_dot(double** matrix1, double** matrix2){
@@ -100,24 +95,16 @@ int check_matrix_dot(double** matrix1, double** matrix2){
 
     /***** 行要素の要素数 *****/
     for(i = 0; matrix1[i][0] != END_ARY; i++) element_count1[0] = i;
-    for(j = 0; matrix2[j][0] != END_ARY; j++) element_count2[0] = j;
 
-    printf("i:%d\n",element_count1[0]);
-    printf("j:%d\n\n\n",element_count2[0]);
 
     /***** 列要素の要素数 *****/
-    for(i = 0; matrix1[0][i] != END_ARY; i++) element_count1[1] = i;
     for(j = 0; matrix2[0][j] != END_ARY; j++) element_count2[1] = j;
 
-
-    printf("i:%d\n",element_count1[1]);
-    printf("j:%d\n\n\n",element_count2[1]);
 
     /***** 各要素数同士のチェック *****/
 
     //真の場合
-    if((element_count1[0] == element_count2[1]) &&
-       (element_count1[1] == element_count2[0]))  return TRUE;
+    if((element_count1[0] == element_count2[1]))  return TRUE;
 
     //偽の場合
     else return FALSE;
@@ -164,7 +151,7 @@ int get_matrix_col(double** matrix){
                           ...任意の加算したい"double**".
             double**    matrix2
                           ...任意の加算したい"double**".
- * return : true or false
+ * return : added matrix pointer
  * note   : この関数は与えられた二つの行列を加算しそのポインタを返す.
  * cation : 引数に不備があった場合適当なポインタを返す.
             ここら辺の処理は後々ちゃんと実装していく予定.
@@ -175,8 +162,7 @@ double** add_matrix(double** matrix1, double** matrix2){
   added_matrix = Init_new_matrix(get_matrix_col(matrix1), get_matrix_row(matrix1));
 
   /*** 行列のチェック ***/
-  if      (get_matrix_col(matrix1) != get_matrix_col(matrix1)) return added_matrix;
-  else if (get_matrix_row(matrix1) != get_matrix_row(matrix1)) return added_matrix;
+  if(!check_matrix(matrix1,matrix2)) return added_matrix;
 
   /*計算部分*/
   else{
@@ -197,9 +183,10 @@ double** add_matrix(double** matrix1, double** matrix2){
                           ...任意の減算したい"double**".
             double**    matrix2
                           ...任意の減算したい"double**".
- * return : true or false
+ * return : subtruct matrix pointer
  * note   : この関数は与えられた二つの行列を減算しそのポインタを返す.
- * cation :
+ * cation :　引数に不備があった場合適当なポインタを返す.
+            ここら辺の処理は後々ちゃんと実装していく予定.
 ******************************************************************************/
 double** sub_matrix(double** matrix1, double** matrix2){
 
@@ -207,8 +194,7 @@ double** sub_matrix(double** matrix1, double** matrix2){
   subed_matrix = Init_new_matrix(get_matrix_col(matrix1), get_matrix_row(matrix1));
 
   /*** 行列のチェック ***/
-  if      (get_matrix_col(matrix1) != get_matrix_col(matrix1)) return subed_matrix;
-  else if (get_matrix_row(matrix1) != get_matrix_row(matrix1)) return subed_matrix;
+  if(!check_matrix(matrix1,matrix2)) return subed_matrix;
 
   /*計算部分*/
   else{
@@ -223,7 +209,28 @@ double** sub_matrix(double** matrix1, double** matrix2){
 
 
 
+/*******************************************************************************
+ * name   : dot_priduct_matrix
+  * arg    : double**    matrix1
+                          ...任意の乗算される"double**".
+            double**    matrix2
+                          ...任意の乗算する"double**".
+ * return : dot producted matrix pointer
+ * note   : この関数は与えられた二つの行列を乗算しそのポインタを返す.
+ * cation : 引数に不備があった場合適当なポインタを返す.
+            ここら辺の処理は後々ちゃんと実装していく予定.
+******************************************************************************/
+double** dot_priduct_matrix(double** matrix1, double** matrix2){
 
+  double** dot_matrix = NULL;
+  dot_matrix = Init_new_matrix(get_matrix_col(matrix1), get_matrix_row(matrix2));
+
+  /*** 行列のチェック ***/
+  if(!check_matrix_dot(matrix1,matrix2))  return dot_matrix;
+
+  
+
+}
 
 
 /*************************************
